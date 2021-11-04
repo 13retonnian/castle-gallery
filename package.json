@@ -1,0 +1,25 @@
+{
+  "name": "cpnt262-a5",
+  "version": "1.0.0",
+  "description": "Deployed REST API",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.14"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/13retonnian/cpnt262-a5.git"
+  },
+  "author": "Christopher Barber",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/13retonnian/cpnt262-a5/issues"
+  },
+  "homepage": "https://github.com/13retonnian/cpnt262-a5#readme"
+}
