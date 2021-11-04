@@ -99,3 +99,5 @@ const castles = [
     creditURL: "https://www.pexels.com/photo/medieval-stone-castle-under-gloomy-sky-5273514/"
   }
 ]
+
+module.exports = castles
