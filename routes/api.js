@@ -1,9 +1,9 @@
-
-const app = express()
+const express = require('express')
 const castles = require('../data/castles')
+const router = express.Router();
 
 
-app.get('/api/castles', (req, res) => {
+router.get('/castles', (req, res) => {
     // Variable is an array and not undefined
   if(castles !== 'undefined' && Array.isArray(castles)) {
     res.send(castles)
@@ -13,7 +13,7 @@ app.get('/api/castles', (req, res) => {
   }
 })
 
-app.get('/api/castles/:id', (req, res) => {
+router.get('/castles/:id', (req, res) => {
   let castle
   const addressBarParams = Number(req.params.id);
   //set up find search parameters function payload  
@@ -36,4 +36,4 @@ app.get('/api/castles/:id', (req, res) => {
 })
 
 
-module.exports = api
+module.exports = router
