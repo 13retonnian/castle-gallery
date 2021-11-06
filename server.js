@@ -3,7 +3,8 @@
 const express = require('express')
 const app = express()
 const castles = require('./data/castles')
-//const api = require('./routes/api.js')
+const mongoose = require('mongoose')
+const dotenv = require('dotenv').config()
 
 //Handle Routes
 const api = require('./routes/api.js')
@@ -18,7 +19,7 @@ app.use((req, res) => {
   } else {  
     // else send HTML 404
     res.status(404)
-    res.send('<h1>404: File Not Found</h1>')
+    res.sendFile(`${__dirname}/public/404.html`)
   }
 });
 
@@ -28,3 +29,14 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, function(){
   console.log(`Listening on port ${PORT}`);
 });
+
+mongoose.connect(
+  process.env.MONGODB_URL,
+  { useUnifiedTopology: true, useNewUrlParser: true },
+  )
+  .then(function(){
+    console.log('Connected to DB...')
+  })
+  .catch(function(err){
+    console.log(err)
+  });
