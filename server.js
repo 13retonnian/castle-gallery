@@ -72,5 +72,8 @@ mongoose.connect(
   bran.save()
   frontenac.save()
   camelot.save()
-
-
+/*
+  console.log(Castle.find((castle) => {
+    return castle.id === 3
+  }))
+*/
