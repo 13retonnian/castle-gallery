@@ -6,11 +6,17 @@ const castles = require('./data/castles')
 const mongoose = require('mongoose')
 const dotenv = require('dotenv').config()
 
+/****************/
 //Handle Routes
+/****************/
 const api = require('./routes/api.js')
 app.use('/api', api)
 
+// app.use(express.static('public/index.html'))
+
+/****************/
 // Handle 404
+/****************/
 app.use((req, res) => {
   // If path starts with `/api`, send JSON 404
   if (req.url.startsWith('/api')) {
@@ -23,15 +29,18 @@ app.use((req, res) => {
   }
 });
 
+/****************/
 // Start server
+/****************/
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, function(){
   console.log(`Listening on port ${PORT}`);
 });
 
+/****************/
 //handle database
-
+/****************/
 mongoose.connect(
   process.env.MONGODB_URL,
   { useUnifiedTopology: true, useNewUrlParser: true },
