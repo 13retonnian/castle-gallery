@@ -30,6 +30,8 @@ app.listen(PORT, function(){
   console.log(`Listening on port ${PORT}`);
 });
 
+//handle database
+
 mongoose.connect(
   process.env.MONGODB_URL,
   { useUnifiedTopology: true, useNewUrlParser: true },
@@ -40,3 +42,26 @@ mongoose.connect(
   .catch(function(err){
     console.log(err)
   });
+ 
+  
+  const castleSchema = new mongoose.Schema({
+    name: String,
+    owner: String,
+    size: String
+  });
+  
+  const Castle = mongoose.model('Castle', castleSchema)
+  
+  const bran = new Castle({ name: 'Bran', owner: 'Dracula', size: 'very large'})
+  
+  const frontenac = new Castle({ name: 'Frontenac', owner: 'Quebec City', size: 'large'})
+  
+  const camelot = new Castle({ name: 'Camelot', owner: 'King Arthur', size: 'very large'})
+  
+  console.log(bran, frontenac, camelot)
+  
+  bran.save()
+  frontenac.save()
+  camelot.save()
+
+
