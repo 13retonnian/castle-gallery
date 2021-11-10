@@ -22,13 +22,13 @@ app.use('/api', api)
 app.use(function(req, res) {
 
   // If path starts with `/api`, send JSON 404
-  if (request.url.startsWith('/api')) {
+  if (req.url.startsWith('/api')) {
     res.status(404)
     res.send({error: 'File Not Found'})
   } else {  
     // else send HTML 404
     res.status(404)
-    res.redirect("404.html")        
+    res.redirect("./404.html")    
     res.send('<h1>404: File Not Found</h1>')
   }
 });
