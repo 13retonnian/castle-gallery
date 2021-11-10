@@ -3,29 +3,33 @@
 const express = require('express')
 const app = express()
 const castles = require('./data/castles')
-const mongoose = require('mongoose')
 const dotenv = require('dotenv').config()
+
+//initialize API public folder
+app.use(express.static('public'))
+app.use(express.urlencoded({ extended: true }));
 
 /****************/
 //Handle Routes
 /****************/
+
 const api = require('./routes/api.js')
 app.use('/api', api)
-
-// app.use(express.static('public/index.html'))
 
 /****************/
 // Handle 404
 /****************/
-app.use((req, res) => {
+app.use(function(request, response) {
+
   // If path starts with `/api`, send JSON 404
-  if (req.url.startsWith('/api')) {
-    res.status(404)
-    res.send({error: 'File Not Found 3'})
+  if (request.url.startsWith('/api')) {
+    response.status(404)
+    response.send({error: 'File Not Found'})
   } else {  
     // else send HTML 404
-    res.status(404)
-    res.sendFile(`${__dirname}/public/404.html`)
+    response.status(404)
+    response.redirect("404.html")        
+    response.send('<h1>404: File Not Found</h1>')
   }
 });
 
@@ -38,42 +42,3 @@ app.listen(PORT, function(){
   console.log(`Listening on port ${PORT}`);
 });
 
-/****************/
-//handle database
-/****************/
-mongoose.connect(
-  process.env.MONGODB_URL,
-  { useUnifiedTopology: true, useNewUrlParser: true },
-  )
-  .then(function(){
-    console.log('Connected to DB...')
-  })
-  .catch(function(err){
-    console.log(err)
-  });
- 
-  
-  const castleSchema = new mongoose.Schema({
-    name: String,
-    owner: String,
-    size: String
-  });
-  
-  const Castle = mongoose.model('Castle', castleSchema)
-  
-  const bran = new Castle({ name: 'Bran', owner: 'Dracula', size: 'very large'})
-  
-  const frontenac = new Castle({ name: 'Frontenac', owner: 'Quebec City', size: 'large'})
-  
-  const camelot = new Castle({ name: 'Camelot', owner: 'King Arthur', size: 'very large'})
-  
-  console.log(bran, frontenac, camelot)
-  
-  bran.save()
-  frontenac.save()
-  camelot.save()
-/*
-  console.log(Castle.find((castle) => {
-    return castle.id === 3
-  }))
-*/

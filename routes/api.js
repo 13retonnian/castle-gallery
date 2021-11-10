@@ -1,39 +1,43 @@
 const express = require('express')
-const castles = require('../data/castles')
+const app = express()
+//const castles = require('../data/castles')
 const router = express.Router();
+//connect to database
+const db = require('../model/db')
+const mongoose = require('mongoose')
+const dotenv = require('dotenv').config()
 
+const castleSchema = new mongoose.Schema({
+  id: Number,
+  title: String,
+  description: String,
+  width: 	Number, 
+  height: Number,
+  pathURL: String,
+  linkURL: String,
+  credit: String,
+  creditURL: String
+});
+const Castle = mongoose.model('Castle', castleSchema)
 
-router.get('/castles', (req, res) => {
-    // Variable is an array and not undefined
-  if(castles !== 'undefined' && Array.isArray(castles)) {
-    res.send(castles)
-  } else {
-    res.status(404)
-    res.send({error: 'File Not Found 1'})    
-  }
+router.get('/castles', async (request, response) => {  
+  const castle = await Castle.find()  
+  response.send(castle)
 })
 
-router.get('/castles/:id', (req, res) => {
-  let castle
+router.get('/castles/:id', async (req, res) => {
+  //get full castle list
+  const castles = await Castle.find()
+  // typecast the address bar parameter to number
   const addressBarParams = Number(req.params.id);
   //set up find search parameters function payload  
-  const specificCastle = function(castle) {
+  const specificCastleParameter = function(castle) {
     //search parameters
     return castle.id === addressBarParams;
   }
-  //if castles is undefined and an array then find it
-  if (typeof castles !== 'undefined' && Array.isArray(castles)) {    
-    castle = castles.find(specificCastle) 
-  } else {
-    castle = null;
-  }  
-  if (typeof castle === 'object' && castle !== null) {
-    res.send(castle)
-  } else {
-    res.status(404)
-    res.send({error: 'File Not Found 2'})
-  }
+  //find the castle  
+  castle = castles.find(specificCastleParameter) 
+  res.send(castle)  
 })
-
 
 module.exports = router

@@ -1,12 +1,10 @@
 # Welcome to Castle REST API
 ## Instructions
 - First start the server using the command 'node server.js'.
-- You will see the responses of running on port 3001
-- Then go into your browser and enter localhost:3001/api/castles into your address bar and press enter
-- This will return a list of castles in the website directory
-- You can then enter a specific castle by entering localhost:3001/api/castles/#  where # is a castle number between 1 and 9
+- You should see the response of 'Listening on port 3001' and 'Connected to DB'
+- Then go into your browser and enter 'localhost:3001/api/castles' into your address bar and press enter. This will return a list of castles in the website database.
+- You can then enter a specific castle by entering 'localhost:3001/api/castles/#' where # is a castle number between 1 and 9.
 - You can also do this same thing by going to https://castle-gallery-a5.herokuapp.com/castles/#
-- 
 
 ## SAIT Web Development
 ## CPNT 262 Assignment 5 - Deployed REST API
@@ -23,10 +21,11 @@ https://castle-gallery-a5.herokuapp.com/
 #### MongoDB Database
 13retonnian -> sait-wbdb -> castles
 
-
 #### Problems I ran into:
 - Was getting 404 when trying to get specific castle. Fixed by typecasting req.params.id.
-- Couldn't figure out how to read DB
+- Couldn't figure out how to read DB. Solved by watching Tony Grimes' excellent classes.
+- Couldn't get the res.redirect to go to the ./public/404.html. I took out the public from the URL and it worked.
+- In the specific castle case I was trying to use Find on the model when I should have been getting the object of castles first. Fixed this by using 'const castles = await Castle.find()' before using find with parameters.
 
 #### Attributions:
 - Attributions to Ashlyn Knox and Tony Grimes' classes, videos and code.
