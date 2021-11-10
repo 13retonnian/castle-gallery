@@ -26,9 +26,11 @@ https://castle-gallery-a5.herokuapp.com/
 - Couldn't figure out how to read DB. Solved by watching Tony Grimes' excellent classes.
 - Couldn't get the res.redirect to go to the ./public/404.html. I took out the public from the URL and it worked.
 - In the specific castle case I was trying to use Find on the model when I should have been getting the object of castles first. Fixed this by using 'const castles = await Castle.find()' before using find with parameters.
+- Having a lot of trouble getting an error when id is out of bounds. Icah pointed out that I was using response. and res. That was it... Dumb mistake.
 
 #### Attributions:
 - Attributions to Ashlyn Knox and Tony Grimes' classes, videos and code.
+- got help from Icah about out of bounds error
 - (W3 Schools Find)[https://www.w3schools.com/jsref/jsref_find.asp]
 - (Medium Thecodinghype)[https://medium.com/thecodinghype/https-medium-com-thecodinghype-reading-from-mongodb-database-using-express-js-and-node-js-250ef8b9282a]
 - (Mongoosejs)[https://mongoosejs.com/docs/models.html]
