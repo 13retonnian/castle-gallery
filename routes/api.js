@@ -31,27 +31,50 @@ router.get('/castles', async (request, response) => {
 })
 
 router.get('/castles/:id', async (req, res) => {
+  // test if id is out of bounds
+  // typecast the address bar parameter to number
+  const addressBarParams = Number(req.params.id)
+  console.log(addressBarParams)
+  //set up find search parameters function payload  
+  const specificCastleParameter = function(castle) {
+  //search parameters
+    return castle.id === addressBarParams;
+  }
   try{
-  //get full castle list
-    const castles = await Castle.find()
-    // typecast the address bar parameter to number
-    const addressBarParams = Number(req.params.id);
-    //set up find search parameters function payload  
-    const specificCastleParameter = function(castle) {
-      //search parameters
-      return castle.id === addressBarParams;
-    }
-    //find the castle  
-    castle = castles.find(specificCastleParameter)
+    const castle = await Castle.findOne({id: addressBarParams})
     if(!castle) {
       throw new Error()
     }
-    //send the castle
     res.send(castle)
   } catch (error) {
-    response.status(404)
+    response.status(404)    
     response.send({error: 'Castle Not Found'})
   }
+
+//   if((addressBarParams < 10) && (addressBarParams > 0)) {    
+//     try{
+//     //get full castle list
+//       const castles = await Castle.find()      
+//       //set up find search parameters function payload  
+//       const specificCastleParameter = function(castle) {
+//         //search parameters
+//         return castle.id === addressBarParams;
+//       }
+//       //find the castle  
+//       castle = Castle.findOne(specificCastleParameter)
+//       if(!castle) {
+//         throw new Error()
+//       }
+//       //send the castle
+//       res.send(castle)
+//     } catch (error) {
+//       response.status(404)
+//       response.send({error: 'Castle Not Found'})
+//     }
+//   } else {    
+//     response.status(404)    
+//     response.send({error: 'Castle Not Found'})
+//   } 
 })
 
 module.exports = router
